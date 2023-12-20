@@ -24,7 +24,7 @@
   }
   
   .logo-container img {
-    width: 50px;
+    width: 40px;
     padding-right: 10px;
   }
 
@@ -46,6 +46,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    grid-column: 2/3;
   }
 
   form {
@@ -63,9 +64,10 @@
     color: #646464;
     padding: 0.7rem 1rem;
     border-radius: 30px;
-    width: 20em;
+    width: 100%;
     transition: all ease-in-out .5s;
     margin-right: -2rem;
+    flex-shrink: 1;
   }
   
   input:hover, input:focus {
@@ -101,3 +103,14 @@
     width: 1.3em;
     fill: #b4b4b4;
   }
+
+
+  @media screen and (max-width: 600px) {
+    .container {
+        
+        grid-template-columns: 1fr;
+    }
+    .logo-container {
+        grid-column: 1;
+    }
+}

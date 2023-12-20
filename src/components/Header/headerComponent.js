@@ -1,18 +1,17 @@
 import React from "react";
-import { HiOutlineSearch } from 'react-icons/hi';
 import './header.css'
 
 
 const Header = () => {
     return (
-        <div className="container">
+        <header className="container">
 
             <div className="logo-container">
                 <img src="./reddit-logo.png" />
                 <p>Reddit<span>Lite</span></p>
             </div>
-            <div className="search-container">
-                <form className="seacrh">
+            
+                <form className="search">
                     <input type="text" placeholder="Search" />
                     <button>
                     <svg class="search__icon" aria-hidden="true" viewBox="0 0 24 24">
@@ -22,9 +21,8 @@ const Header = () => {
         </svg>
                     </button>
                 </form>
-            </div>
 
-        </div>
+        </header>
     )
 }
 
