@@ -1,4 +1,5 @@
 import { createSlice, createSelector } from "@reduxjs/toolkit";
+import { getPostComments, getSubredditPosts } from "../api/reddit";
 
 
 const initialState = {
@@ -6,7 +7,7 @@ const initialState = {
     error: false,
     loading: false,
     searchTerm: '',
-    selectedSubReddits: ''
+    selectedSubReddit: ''
 }
 
 const redditSlice = createSlice({
@@ -39,17 +40,90 @@ const redditSlice = createSlice({
         setSelectedSubreddit(state, action) {
             state.selectedSubReddits = action.payload;
             state.searchTerm = '';
-        }
+        },
+
+        toggleShowingComments(state, action) {
+            state.posts[action.payload].showingComments = !state.posts[action.payload].showingComments
+        },
+
+        startGetComments(state, action) {
+            state.posts[action.payload].showingComments = !state.posts[action.payload].showingComments;
+            if (!state.posts[action.payload].showingComments) {
+                return
+            }
+            state.posts[action.payload].loadingComments = true;
+            state.posts[action.payload].error = false;
+        },
+
+        getCommentsSuccess(state, action) {
+            state.posts[action.payload.index].loadingComments = false;
+            state.posts[action.payload.index].comments = action.payload.comments;
+        },
+
+        getCommentsFailed(state, action) {
+          state.posts[action.payload].loadingComments = false;
+          state.posts[action.payload].error = true;
+        },
     }
 });
 
 export const {
-    setSearchTerm,
-    setPosts,
-    startGetPosts,
-    getPostSuccess,
-    getPostFail
+  setPosts,
+  getPostsFailed,
+  getPostsSuccess,
+  startGetPosts,
+  setSearchTerm,
+  setSelectedSubreddit,
+  toggleShowingComments,
+  getCommentsFailed,
+  getCommentsSuccess,
+  startGetComments
 } = redditSlice.actions;
 
 
 export default redditSlice.reducer;
+
+
+export const fetchPosts = (subreddit) => async (dispatch) => {
+    try {
+        dispatch(startGetPosts());
+        const posts = await getSubredditPosts(subreddit);
+
+        const postsWithMetadata = posts.map((post) => ({
+            ...post,
+            showingComments: false,
+            comments: [],
+            loadingComments: false,
+            error: false
+        }));
+        dispatch(getPostsSuccess(postsWithMetadata));
+        } catch (error) {
+            dispatch(getPostsFailed());
+        }
+}
+
+
+export const fetchComments = (index, permalink) => async (dispatch) => {
+    try {
+        dispatch(startGetComments(index));
+        const comments = await getPostComments(permalink);
+
+        dispatch(getCommentsSuccess({index, comments}));
+        } catch (error) {
+            dispatch(getCommentsFailed(index));
+        }
+}
+
+const selectPosts = (state) => state.reddit.posts;
+const selectSearchTerm = (state) => state.reddit.searchTerm;
+export const selectSelectedSubreddit = (state) => state.reddit.selectedSubReddit;
+
+export const selectFiltredPosts = createSelector(
+    [selectPosts, selectSearchTerm],
+    (posts, searchTerm) => {
+        if (searchTerm !== '') {
+            return posts.filter((post) => post.title.toLowerCase().includes(searchTerm.toLowerCase()))
+        }
+        return posts;
+    }
+)
