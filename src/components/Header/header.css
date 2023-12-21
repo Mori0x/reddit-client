@@ -42,12 +42,7 @@
     color: black;
   }
 
-  .search-container {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    grid-column: 2/3;
-  }
+
 
   form {
     display: flex;
@@ -107,10 +102,15 @@
 
   @media screen and (max-width: 600px) {
     .container {
-        
         grid-template-columns: 1fr;
     }
     .logo-container {
         grid-column: 1;
+        font-size: 18px;
     }
+
+    form {
+      margin-right: 10px;
+    }
+    
 }
