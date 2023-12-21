@@ -34,6 +34,11 @@ const redditSlice = createSlice({
         getPostFail(state) {
             state.loading = false
             state.error = true
+        },
+
+        setSelectedSubreddit(state, action) {
+            state.selectedSubReddits = action.payload;
+            state.searchTerm = '';
         }
     }
 });
