@@ -3,11 +3,11 @@ import { getPostComments, getSubredditPosts } from "../api/reddit";
 
 
 const initialState = {
-    posts: {},
+    posts: [],
     error: false,
     loading: false,
     searchTerm: '',
-    selectedSubReddit: ''
+    selectedSubReddit: '/r/pics/'
 }
 
 const redditSlice = createSlice({
@@ -27,18 +27,18 @@ const redditSlice = createSlice({
             state.error = false
         },
 
-        getPostSuccess(state, action) {
+        getPostsSuccess(state, action) {
             state.loading = false
             state.posts = action.payload
         },
 
-        getPostFail(state) {
+        getPostsFailed(state) {
             state.loading = false
             state.error = true
         },
 
         setSelectedSubreddit(state, action) {
-            state.selectedSubReddits = action.payload;
+            state.selectedSubReddit = action.payload;
             state.searchTerm = '';
         },
 
@@ -88,6 +88,7 @@ export const fetchPosts = (subreddit) => async (dispatch) => {
     try {
         dispatch(startGetPosts());
         const posts = await getSubredditPosts(subreddit);
+        console.log(posts)
 
         const postsWithMetadata = posts.map((post) => ({
             ...post,
@@ -118,7 +119,7 @@ const selectPosts = (state) => state.reddit.posts;
 const selectSearchTerm = (state) => state.reddit.searchTerm;
 export const selectSelectedSubreddit = (state) => state.reddit.selectedSubReddit;
 
-export const selectFiltredPosts = createSelector(
+export const selectFilteredPosts = createSelector(
     [selectPosts, selectSearchTerm],
     (posts, searchTerm) => {
         if (searchTerm !== '') {
