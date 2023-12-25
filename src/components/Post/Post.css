@@ -1,0 +1,19 @@
+.post-wrapper {
+    width: 100%;
+}
+
+.post-container {
+    width: 100%;
+}
+
+.post-image-container {
+    width: 100%;
+    overflow: hidden;
+    border-radius: 2;
+}
+
+.post-image-container .post-image {
+    width: 100%;
+    border-radius: 10px;
+}
+

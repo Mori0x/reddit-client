@@ -1,6 +1,5 @@
 import React, {useEffect} from "react";
 import {useDispatch, useSelector} from 'react-redux';
-import { AnimatedList } from "react-animated-list";
 import Post from '../Post/Post'
 import {
     fetchPosts,
@@ -8,10 +7,15 @@ import {
     setSearchTerm,
     fetchComments,
   } from '../../app/redditSlice';
+import getRandomNumber from "../../utils/getRandomNumber";
+import PostLoading from "../Post/PostLoading";
+
+
+
 
 const Home = () => {
     const reddit = useSelector((state) => state.reddit);
-    const { isLoading, error, searchTerm, selectedSubReddit } = reddit;
+    const { loading, error, searchTerm, selectedSubReddit } = reddit;
     const posts = useSelector(selectFilteredPosts);
     console.log(posts)
     const dispatch = useDispatch();
@@ -20,12 +24,15 @@ const Home = () => {
         dispatch(fetchPosts(selectedSubReddit))
     }, [selectedSubReddit]);
 
-
-    if (isLoading) {
+    if (loading) {
         return (
-            <AnimatedList animation="zoom">
-                {Array(5).fill()}
-            </AnimatedList>
+            <>
+            <PostLoading />
+            <PostLoading />
+            <PostLoading />
+            <PostLoading />
+            <PostLoading />
+            </>
         )
     };
 
@@ -41,7 +48,7 @@ const Home = () => {
         )
     };
 
-    if (posts.length === 0) {
+    if (posts.length === 0 && !loading) {
         return (
             <div className="error">
                 <h2>No posts matchin '{searchTerm}'</h2>
