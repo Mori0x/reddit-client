@@ -9,6 +9,7 @@ import {
   } from 'react-icons/ti';
 import Card from '../Card/Card'
 import moment from 'moment';
+import shortenNumber from '../../utils/shortenNumber'
 
 import './Post.css'
 
@@ -24,7 +25,33 @@ const Post = (props) => {
         } else {
             setVoteValue(-1)
         }
-    }
+    };
+
+    const renderUpVote = () => {
+        if (voteValue === 1) {
+          return <TiArrowUpThick className="icon-action" />;
+        }
+        return <TiArrowUpOutline className="icon-action" />;
+      };
+    
+      const renderDownVote = () => {
+        if (voteValue === -1) {
+          return <TiArrowDownThick className="icon-action" />;
+        }
+        return <TiArrowDownOutline className="icon-action" />;
+      };
+
+
+      const getVoteType = () => {
+        if (voteValue === 1) {
+            return 'up-vote'
+        } else if (voteValue === -1) {
+            return 'down-vote'
+        }
+        return ''
+      }
+
+      
 
 
     return (
@@ -32,8 +59,26 @@ const Post = (props) => {
             <Card>
                 <div className="post-wrapper">
                     <div className="post-votes-container">
-                        <button type="button" className={`icon-action-button up-vote`}>
-                            
+                    <button
+                        type="button"
+                        className={`icon-action-button up-vote ${
+                          voteValue === 1 && 'active'
+                        }`}
+                        onClick={() => onHandleVote(1)}
+                        aria-label="Up vote"
+                    >
+                      {renderUpVote()}
+                    </button>
+                        <p className={`vote-count ${voteValue === 1 ? 'up-vote' : voteValue === -1 ? 'down-vote' : ''}`}>{shortenNumber(post.ups, 1)}</p>
+                    <button
+                        type="button"
+                        className={`icon-action-button down-vote ${
+                          voteValue === -1 && 'active'
+                        }`}
+                        onClick={() => onHandleVote(-1)}
+                        aria-label="Down vote"
+                        >
+                          {renderDownVote()}
                         </button>
                     </div>
                     <div className="post-container">
@@ -53,7 +98,7 @@ const Post = (props) => {
                                     post.showingComments && 'showing-comments'
                                 }`}
                                 >
-                                <TiMessage />
+                                <TiMessage className="comments-icon" />
                                 </button>
                             </span>
                         </div>

@@ -1,5 +1,15 @@
 .post-wrapper {
     width: 100%;
+    display: flex;
+    color: rgb(73, 73, 73);
+    
+}
+
+.post-votes-container {
+    width: 60px;
+    padding-top: 20px;
+    font-weight: bold;
+    
 }
 
 .post-container {
@@ -17,3 +27,35 @@
     border-radius: 10px;
 }
 
+.icon-action {
+    font-size: 2rem;
+}
+
+.icon-action-button.up-vote.active {
+    color: rgb(31, 202, 31);
+  }
+  
+  .icon-action-button.down-vote.active {
+    color: red;
+  }
+
+.post-votes-container p {
+    font-size: 18px;
+    
+}
+
+.vote-count.up-vote {
+    color: rgb(31, 202, 31); /* Change to your desired color for up-vote */
+  }
+  
+  .vote-count.down-vote {
+    color: red; /* Change to your desired color for down-vote */
+  }
+
+.post-details {
+    font-size: 18px;
+}
+
+.comments-icon {
+    font-size: 1.5rem;
+}

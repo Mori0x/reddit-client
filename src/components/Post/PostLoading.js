@@ -1,5 +1,4 @@
 import React from 'react';
-import Skeleton from 'react-loading-skeleton';
 import './Post.css';
 import './PostLoading.css';
 import {
@@ -7,7 +6,6 @@ import {
   TiArrowDownOutline,
   TiMessage,
 } from 'react-icons/ti';
-import getRandomNumber from '../../utils/getRandomNumber';
 
 const PostLoading = () => {
   return (
