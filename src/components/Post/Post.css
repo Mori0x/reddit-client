@@ -45,11 +45,15 @@
 }
 
 .vote-count.up-vote {
-    color: rgb(31, 202, 31); /* Change to your desired color for up-vote */
+    color: rgb(31, 202, 31); 
   }
   
   .vote-count.down-vote {
-    color: red; /* Change to your desired color for down-vote */
+    color: red; 
+  }
+
+  .vote-count {
+    padding: 6px;
   }
 
 .post-details {
