@@ -36,6 +36,14 @@ const Home = () => {
         )
     };
 
+    const onToggleComments = (index) => {
+        const getComments = (permalink) => {
+            dispatch(fetchComments(index, permalink))
+        }
+
+        return getComments;
+    }
+
     if (error) {
         console.log(error)
         return (
@@ -62,7 +70,7 @@ const Home = () => {
     return (
         <>
             {posts.map((post, index) => (
-                <Post post={post} key={post.id} />
+                <Post post={post} key={post.id} onToggleComments={onToggleComments(index)}/>
             ))}
         
         

@@ -10,12 +10,13 @@ import {
 import Card from '../Card/Card'
 import moment from 'moment';
 import shortenNumber from '../../utils/shortenNumber'
+import Comment from '../Comment/Comment'
 
 import './Post.css'
 
 const Post = (props) => {
     const [voteValue, setVoteValue] =  useState(0);
-    const {post, toggleComments} = props;
+    const {post, onToggleComments} = props;
 
     const onHandleVote = (newValue) => {
         if (newValue === voteValue) {
@@ -51,7 +52,38 @@ const Post = (props) => {
         return ''
       }
 
-      
+      const renderComments = () => {
+        if (post.errorComments) {
+            return (
+                <div>
+                    <h3>Error loading comments</h3>
+                </div>
+            )
+        }
+
+        if (post.loadingComments) {
+            return (
+                <div>
+                    <div class="skeleton comment"></div>
+                    <div class="skeleton comment"></div>
+                    <div class="skeleton comment"></div>
+                    <div class="skeleton comment"></div>
+                </div>
+            )
+        }
+
+        if (post.showingComments) {
+            
+            return (
+                <div>
+                    {post.comments.map((comment) => (
+                        
+                        <Comment comment={comment} key={comment.id} />
+                    ))}
+                </div>
+            )
+        }
+      }
 
 
     return (
@@ -94,14 +126,17 @@ const Post = (props) => {
                             <span className="post-comments-container">
                                 <button
                                 type="button"
+                                onClick={() => onToggleComments(post.permalink)}
                                 className={`icon-action-button ${
                                     post.showingComments && 'showing-comments'
                                 }`}
                                 >
                                 <TiMessage className="comments-icon" />
                                 </button>
+                                {shortenNumber(post.num_comments, 1)}
                             </span>
                         </div>
+                        {renderComments()}
                     </div>
                 </div>
             </Card>

@@ -59,3 +59,9 @@
 .comments-icon {
     font-size: 1.5rem;
 }
+
+.author-username {
+    font-weight: bold;
+    color: var(--color-branding);
+}
+
