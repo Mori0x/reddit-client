@@ -116,7 +116,7 @@ const Post = (props) => {
                     <div className="post-container">
                         <h3 className="post-title">{post.title}</h3>
                         <div className="post-image-container">
-                            <img src={post.url} className="post-image"/>
+                            {post.url.includes('jpeg') && <img src={post.url} className="post-image"/>}
                         </div>
                         <div className="post-details">
                             <span className="author-details">
