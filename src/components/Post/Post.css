@@ -75,3 +75,9 @@
     color: var(--color-branding);
 }
 
+@media screen and (max-width: 768px) {
+    .author-username {
+        font-size: 16px;
+        font-weight: 600;
+    }
+}

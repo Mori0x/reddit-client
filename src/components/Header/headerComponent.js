@@ -1,11 +1,14 @@
-import React, {useEffect, useState} from "react";
+import React, {useEffect, useState, useRef} from "react";
 import {useDispatch, useSelector} from 'react-redux';
 import { setSearchTerm } from "../../app/redditSlice";
+import Subreddits from "../Subreddits/Subreddits";
 
 import './header.css'
 
 
 const Header = () => {
+    const asideRef = useRef(null);
+    const buttonRef = useRef(null)
     const [searchTermLocal, setSearchTermLocal] = useState('');
     const searchTerm = useSelector((state) => state.reddit.searchTerm);
     const dispatch = useDispatch();
@@ -22,6 +25,40 @@ const Header = () => {
     useEffect(() => {
         setSearchTermLocal(searchTerm);
     }, [searchTerm]);
+
+
+
+    const [isAsideVisible, setIsAsideVisible] = useState(false);
+    const [isSmallScreen, setIsSmallScreen] = useState(false);
+
+    useEffect(() => {
+      const handleResize = () => {
+        setIsSmallScreen(window.innerWidth <= 768); // Adjust breakpoint as needed
+      };
+      window.addEventListener('resize', handleResize);
+      handleResize();
+
+      return () => window.removeEventListener('resize', handleResize);
+    }, []);
+
+    const toggleAside = () => {
+      setIsAsideVisible(!isAsideVisible);
+    };
+
+
+    useEffect(() => {
+        // ... other code
+    
+        const handleClickOutside = (event) => {
+          if (isAsideVisible && !asideRef.current.contains(event.target) && isAsideVisible && !buttonRef.current.contains(event.target)) {
+            setIsAsideVisible(false);
+          }
+        };
+    
+        document.addEventListener('click', handleClickOutside);
+    
+        return () => document.removeEventListener('click', handleClickOutside);
+      }, [isAsideVisible]);
 
 
     return (
@@ -42,6 +79,19 @@ const Header = () => {
         </svg>
                     </button>
                 </form>
+
+                {isSmallScreen && (
+                    <div className="button-container">
+                    <button className="list-icon" ref={buttonRef} onClick={toggleAside}>
+                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-list" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5"/>
+                      </svg>
+                    </button>
+                  </div>
+                )}
+                <aside ref={asideRef} className={`aside-container ${isAsideVisible ? 'aside-visible' : ''}`}>
+                  <Subreddits />
+                </aside>
 
         </header>
     )
