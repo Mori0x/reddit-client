@@ -19,7 +19,7 @@ code {
 }
 
 main {
-  padding-left: var(--spacing-2);
+  padding: var(--spacing-2);
   grid-column: 1/3;
 }
 

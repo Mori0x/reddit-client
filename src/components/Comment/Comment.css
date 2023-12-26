@@ -27,3 +27,12 @@
     color: var(--color-branding);
   }
   
+  @media screen and (max-width: 768px) {
+    .comment-author {
+      font-weight: 600;
+      font-size: 14px;
+    }
+    .comment-created-time {
+      font-size: 12px;
+    }
+  }
