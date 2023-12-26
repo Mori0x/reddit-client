@@ -17,6 +17,7 @@ import './Post.css'
 const Post = (props) => {
     const [voteValue, setVoteValue] =  useState(0);
     const {post, onToggleComments} = props;
+    const photoExtensions = ['jpg', 'jpeg', 'png', 'gif', 'bmp'];
 
     const onHandleVote = (newValue) => {
         if (newValue === voteValue) {
@@ -116,7 +117,7 @@ const Post = (props) => {
                     <div className="post-container">
                         <h3 className="post-title">{post.title}</h3>
                         <div className="post-image-container">
-                            {post.url.includes('jpeg') && <img src={post.url} className="post-image"/>}
+                            {photoExtensions.some(ext => post.url.endsWith(`.${ext}`)) && <img src={post.url} className="post-image"/>}
                         </div>
                         <div className="post-details">
                             <span className="author-details">

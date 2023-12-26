@@ -9,7 +9,8 @@
     width: 60px;
     padding-top: 20px;
     font-weight: bold;
-    
+    margin-right: var(--spacing-3);
+    text-align: center;
 }
 
 .post-container {
