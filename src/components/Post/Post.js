@@ -1,5 +1,4 @@
 import React, {useState} from "react";
-import Skeleton from 'react-loading-skeleton';
 import {
     TiArrowUpOutline,
     TiArrowUpThick,
@@ -123,7 +122,7 @@ const Post = (props) => {
                             <span className="author-details">
                                 <span className="author-username">{post.author} </span>
                             </span>
-                            <span>{moment.unix(post.created_utc).fromNow()}</span>
+                            <span className="date-creation">{moment.unix(post.created_utc).fromNow()}</span>
                             <span className="post-comments-container">
                                 <button
                                 type="button"

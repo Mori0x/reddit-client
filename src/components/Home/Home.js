@@ -7,7 +7,6 @@ import {
     setSearchTerm,
     fetchComments,
   } from '../../app/redditSlice';
-import getRandomNumber from "../../utils/getRandomNumber";
 import PostLoading from "../Post/PostLoading";
 
 
@@ -17,7 +16,6 @@ const Home = () => {
     const reddit = useSelector((state) => state.reddit);
     const { loading, error, searchTerm, selectedSubReddit } = reddit;
     const posts = useSelector(selectFilteredPosts);
-    console.log(posts)
     const dispatch = useDispatch();
 
     useEffect(() => {

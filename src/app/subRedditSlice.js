@@ -36,7 +36,7 @@ export default subRedditSlice.reducer;
 
 export const fetchSubreddits = () => async (dispatch) => {
     try {
-        dispatch(startGetSubreddits);
+        dispatch(startGetSubreddits());
         const subreddits = await getSubreddits();
         dispatch(getSubredditsSuccess(subreddits))
     } catch(error) {

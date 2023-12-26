@@ -8,13 +8,17 @@ import './Subreddits.css'
 const Subreddits = () => {
     const dispatch = useDispatch();
     const subreddits = useSelector(selectSubreddits);
+    const {isLoading} = useSelector((state) => state.subreddits);
+    console.log(isLoading)
     const selectedSubReddit = useSelector(selectSelectedSubreddit);
 
     useEffect(() => {
         dispatch(fetchSubreddits());
     }, [dispatch])
 
+
     return (
+        
         <Card className='subreddit-card'>
             <h2>Subreddits</h2>
             <ul className="subreddits-list">

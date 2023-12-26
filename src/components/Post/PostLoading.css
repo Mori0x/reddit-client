@@ -21,11 +21,13 @@
 .post-details {
   display: flex;
   justify-content: space-between;
+  align-items: center;
 }
 
 .post-comments-container {
   display: flex;
   flex-direction: row;
+  align-items: center;
 }
 
 .post-votes-value-loading {

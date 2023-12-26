@@ -75,9 +75,25 @@
     color: var(--color-branding);
 }
 
+
+
 @media screen and (max-width: 768px) {
     .author-username {
-        font-size: 16px;
         font-weight: 600;
+    }
+    .post-title {
+        font-size: 16px;
+    }
+    .icon-action {
+        font-size: 1.5rem;
+    }
+    .post-votes-container p {
+        font-size: 16px;
+    }
+    .post-votes-container {
+        margin-right: var(--spacing-1);
+    }
+    .post-details {
+        font-size: 14px;
     }
 }
