@@ -33,7 +33,7 @@ const Header = () => {
 
     useEffect(() => {
       const handleResize = () => {
-        setIsSmallScreen(window.innerWidth <= 768); // Adjust breakpoint as needed
+        setIsSmallScreen(window.innerWidth <= 768);
       };
       window.addEventListener('resize', handleResize);
       handleResize();
@@ -46,9 +46,7 @@ const Header = () => {
     };
 
 
-    useEffect(() => {
-        // ... other code
-    
+    useEffect(() => {    
         const handleClickOutside = (event) => {
           if (isAsideVisible && !asideRef.current.contains(event.target) && isAsideVisible && !buttonRef.current.contains(event.target)) {
             setIsAsideVisible(false);
@@ -62,8 +60,9 @@ const Header = () => {
 
 
     return (
+      
         <header className="container">
-
+            <div className={`dark-overlay ${isAsideVisible ? 'overlay-visible' : ''}`} />
             <div className="logo-container">
                 <img src="./reddit-logo.png" alt="Reddit logo"/>
                 <p>Reddit<span>Lite</span></p>
