@@ -27,6 +27,11 @@
     color: var(--color-branding);
   }
   
+.comment-body {
+  overflow-wrap: anywhere;
+
+}
+
   @media screen and (max-width: 768px) {
     .comment-author {
       font-weight: 600;

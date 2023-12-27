@@ -8,8 +8,6 @@ import './Subreddits.css'
 const Subreddits = () => {
     const dispatch = useDispatch();
     const subreddits = useSelector(selectSubreddits);
-    const {isLoading} = useSelector((state) => state.subreddits);
-    console.log(isLoading)
     const selectedSubReddit = useSelector(selectSelectedSubreddit);
 
     useEffect(() => {
@@ -25,7 +23,7 @@ const Subreddits = () => {
                 {subreddits.map((subreddit) => (
                     <li key={subreddit.id} className={`${selectedSubReddit === subreddit.url && `selected-subreddit`}`}>
                         <button type="button" onClick={() => dispatch(setSelectedSubreddit(subreddit.url))}>
-                            <img src={subreddit.icon_img} className="subreddit-icon" />
+                            <img src={subreddit.icon_img} alt="subreddit icon" className="subreddit-icon" />
                             {subreddit.display_name}
                         </button>
                     </li>
