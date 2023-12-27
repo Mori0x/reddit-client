@@ -59,6 +59,14 @@ const Header = () => {
       }, [isAsideVisible]);
 
 
+      useEffect(() => {
+        if (isSmallScreen && isAsideVisible) {
+          document.body.classList.add('dark-background');
+        } else {
+          document.body.classList.remove('dark-background');
+        }
+      }, [isSmallScreen, isAsideVisible]);
+
     return (
       
         <header className="container">
